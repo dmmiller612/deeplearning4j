@@ -75,6 +75,11 @@ abstract class SparkDl4jModelWrapper[T, E <: SparkDl4jModelWrapper[T, E]](overri
         } else throw new RuntimeException("Vector size must be greater than 0")
     }
 
+    /**
+      * Output wrapper around spark multilayer network. Does not flatten tensors if using rnn.
+      * @param vector spark-mllib vector
+      * @return spark-mllib vector
+      */
     protected def output(vector: Vector) : Vector = network.predict(vector)
 
     protected def outputTensor(vector: Vector) : INDArray = getMultiLayerNetwork.output(MLLibUtil.toVector(vector))

@@ -48,8 +48,18 @@ class SparkDl4jModel(override val uid: String, network: SparkDl4jMultiLayer)
 
     override def predict(features: Vector) : Double = predictor(features)
 
+    /**
+      * returns a flattened tensor or a transformation from tensor to vector.
+      * @param vector spark-ml vector
+      * @return Vector
+      */
     override def outputFlattenedTensor(vector: Vector): Vector = super.outputFlattenedTensor(vector)
 
+    /**
+      * Outputs the tensor from the multiLayer network
+      * @param vector spark-ml vector
+      * @return and INDArray
+      */
     override def outputTensor(vector: Vector) : INDArray = super.outputTensor(vector)
 
 }

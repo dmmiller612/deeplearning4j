@@ -52,10 +52,25 @@ class SparkDl4jModel(override val uid: String, network: SparkDl4jMultiLayer)
         predictor(Vectors.fromML(features))
     }
 
+    /**
+      * Output wrapper around spark multilayer network. Does not flatten tensors if using rnn.
+      * @param vector spark-ml vector
+      * @return spark-ml vector
+      */
     def output(vector: Vector): Vector = org.apache.spark.ml.linalg.Vectors.dense(super.output(Vectors.fromML(vector)).toArray)
 
+    /**
+      * returns a flattened tensor or a transformation from tensor to vector.
+      * @param vector spark-ml vector
+      * @return Vector
+      */
     def outputFlattenedTensor(vector: Vector) : Vector = org.apache.spark.ml.linalg.Vectors.dense(super.outputFlattenedTensor(Vectors.fromML(vector)).toArray)
 
+    /**
+      * Outputs the tensor from the multiLayer network
+      * @param vector spark-ml vector
+      * @return and INDArray
+      */
     def outputTensor(vector: Vector) : INDArray = super.outputTensor(Vectors.fromML(vector))
 
 }
